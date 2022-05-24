@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <title>OO7-Army</title>
+    <style type="text/css">
+        body {
+            margin: 0px;
+        }
+        ul.navbar {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            background-color: #333;
+            opacity: 90%;
+            position: fixed;
+        }
+        li.navbar {
+            float: left;
+            background-color: #333;
+        }
+        li.navbar span.navbar {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        li.navbar:not(li.activenavbar) span.navbar:hover {
+            background-color: #111;
+            cursor: pointer;
+        }
+        li.activenavbar {
+            background-color: green;
+            cursor: not-allowed;
+        }
+        button.navbar {
+            border: 1px solid transparent;
+            background-color: transparent;
+            font-size: 12px;
+            color: white;
+        }
+        .dropdown {
+            display: block;
+            color: white;
+            padding: 14px 16px;
+            text-align: center;
+            cursor: pointer;
+            width: 350px;
+            background-color: #333;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .dropdowncontent {
+            display: none;
+        }
+        .dropdown:hover .dropdowncontent {
+            position: absolute;
+            display: block;
+            margin-left: 250px;
+        }
+        .dropdown:hover {
+            background-color: #111;
+        }
+        .subbtn {
+            background-color: red;
+            width: 100px;
+            height: 25px;
+            color: white;
+        }
+        .subspan {
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .followbtn {
+            background-color: #0095f6;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            color: white;
+            font-size: 15px;
+        }
+        .followspan {
+            text-decoration: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .hide {
+            visibility: hidden;
+        }
+        .motolist {
+            list-style-type:decimal;
+        }
+        .anyrandomuserdp {
+            border-radius: 50px;
+            border: 2px solid black;
+            width: 50px;
+            height: 50px;
+        }
+        .centertext {
+            text-align: center;
+        }
+        .commentext {
+            position: absolute;
+            margin-top: 10px;
+            height: 30px;
+        }
+        button {
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .copybtn {
+            background-color: #1f97ff;
+            border: none;
+            padding: 5px 22px;
+            text-align: center;
+            display: inline-block;
+            font-size: 15px;
+        }
+        .copybtn:hover {
+            background-color: #3ea6ff;
+        }
+        .halfwidth {
+            width: 50%;
+        }
+        .youtubeimg {
+            width: 50px;
+            border-radius: 50px;
+        }
+        .youtubeaktext {
+            position: absolute;
+            margin-top: 10px;
+        }
+        .upper {
+            position: absolute;
+            z-index: -1;
+        }
+        .galleryimage {
+            width: 150px;
+            /* height: 150px; */
+            cursor: zoom-in;
+        }
+        .screengalleryimage {
+            width: 200px;
+        }
+        .galleryvideo {
+            width: 280px;
+        }
+        .content {
+            margin-left: 20px;
+        }
+        #commenttext {
+            width: 250px;
+            height: 20px;
+        }
+        div.gallerydivision {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 300px;
+            height: 250px;
+        }
+        div.gallerydivision:hover {
+            border: 1px solid #777;
+        }
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+        div.gallerydivision {
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+        }
+        .anchor {
+            color: blue;
+            cursor: pointer;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .anchor:hover {
+            text-decoration: underline;
+        }
+        .gallerytitle {
+            margin-top: 300px;
+            font-size: 28px;
+        }
+        .download {
+            background-color: #0080006b;
+        }
+        .absolute {
+            position: absolute;
+        }
+        .slide {
+            position: fixed;
+        }
+        button.arrow {
+            margin-top: 50%;
+        }
+        button.right {
+            margin-left: 100%;
+        }
+        .displayimage {
+            padding: 0px;
+        }
+        div.darkbg {
+            width: 500px;
+            height: 500px;
+            position: fixed;
+        }
+        canvas.darkbg {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <canvas class="upper canvas"></canvas>
+        </div>
+        <div class="navbar">
+            <ul class="navbar">
+                <li class="navbar activenavbar">
+                    <span class="navbar">Home</span>
+                </li>
+                <li class="navbar">
+                    <span class="navbar">About us</span>
+                </li>
+                <li class="navbar">
+                    <span class="navbar">Support us</span>
+                </li>
+                <li class="dropdown">
+                    <span class="navbar">Boilerplates</span>
+                    <div class="dropdowncontent">
+                        <ul class="navbar">
+                            <li class="navbar dropdowncon">
+                                <span class="navbar">All</span>
+                            </li>
+                            <li class="navbar dropdowncon">
+                                <span class="navbar">Photos</span>
+                            </li>
+                            <li class="navbar dropdowncon">
+                                <span class="navbar">Videos</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="allcontent">
+                <br>
+                <br>
+                <p>
+                    <span>
+                        Make sure that you are
+                    </span>
+                    <span><b>subscribe</b></span>
+                    <span>to</span>
+                    <span class="aklink"></span>
+                    <span>before downloading any boilerplates (photos and videos)</span>
+                </p>
+                <p>
+                    <span>View</span>
+                    <span class="anchor" jsaction="all">all boilerplates</span>
+                </p>
+                <hr/>
+            </div>
+            <div class="home">
+                <p>
+                    <span>
+                        <b>
+                            <span>Message for</span>
+                            <span class="aklink"></span>
+                            <span>-</span>
+                        </b>
+                    </span>
+                    <span>
+                        Please do not change your logo!
+                    </span>
+                    <span>
+                        <a target="_blank" href="https://www.youtube.com/results?search_query=AK007+the+GAMER">
+                            #007-Army
+                        </a>
+                    </span>
+                </p>
+                <div class="subscribe">
+                    <span>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCbMhaBj7fReBAZBz9fWrALg">
+                            <img class="youtubeimg" src="./AK007theGAMERyoutube.jpg" alt="youtube">
+                        </a>
+                    </span>
+                    <span class="youtubeaktext">AK007 the GAMER</span>
+                </div>
+                <p>
+                    <span>
+                        Home of boilerplates of
+                    </span>
+                    <span class="aklink"></span>
+                </p>
+                <p>
+                    The boilerplates provided are images and videos
+                </p>
+                <p>
+                    <span>
+                        Boilerplates may help to save
+                    </span>
+                    <span class="aklink">
+                        <span>'s</span>
+                    </span>
+                    <span>logo</span>
+                </p>
+                <hr/>
+            </div>
+            <div class="about us">
+                <p>
+                    <span>Since,</span>
+                    <span class="aklink"></span>
+                    <span>
+                        is changing is logo therefore, we will ensure that
+                    </span>
+                    <span class="aklink"></span>
+                    <span>does not change his logo.</span>
+                </p>
+                <p>
+                    <span>We provide</span>
+                    <span><b>boilerplates (photos & videos)</b></span>
+                    <span>to make sure that</span>
+                    <span class="aklink"></span>
+                    <span>realises that the logo he had kept is a</span>
+                    <span><b>masterpice</b></span>
+                </p>
+                <p>Our vision-</p>
+                <ul class="motolist">
+                    <li>
+                        <span>Save or avoiding replacement of</span>
+                        <span class="aklink"><span>'s</span></span>
+                        <span>logo</span>
+                    </li>
+                    <li>
+                        <span>Providing templates of his logo to realise</span>
+                        <span class="aklink"></span>
+                        <span>that his</span>
+                        <span><b>logo</b></span>
+                        <span>is a</span>
+                        <span><b>masterpice</b></span>
+                    </li>
+                </ul>
+                <p>
+                    <span>The boilerplates are accessible to</span>
+                    <span class="aklink"></span>
+                    <span>and</span>
+                    <span>
+                        <a target="_blank" href="https://www.youtube.com/results?search_query=AK007+the+GAMER">
+                            #007-Army
+                        </a>
+                    </span>
+                </p>
+                <hr/>
+            </div>
+            <div class="support us">
+                <div class="supportmessage">
+                    <h4 class="centertext">
+                        <span>Support us through-</span>
+                    </h4>
+                </div>
+                <hr class="halfwidth"/>
+                <div class="suppportcomment">
+                    <h3 class="centertext">
+                        <span>Commenting</span>
+                        <span class="aklink"></span>
+                    </h3>
+                    <div class="commentbox">
+                        <p>
+                            <span>
+                                <img class="anyrandomuserdp" src="./Any_random_user.jpg" alt="user">
+                            </span>
+                            <span class="commentext">
+                                <textarea id="commenttext" type="text" name="comment box" value="Please do not change your logo!">
+                                </textarea>
+                            </span>
+                            <span>
+                                <button class="copybtn">Copy text</button>
+                            </span>
+                        </p>
+                        <p class="centertext">
+                            <span>After copying text, comment this to</span>
+                            <span class="aklink"></span>
+                        </p>
+                    </div>
+                    <hr class="halfwidth"/>
+                </div>
+                <div class="supportsubscribe centertext">
+                    <h3>
+                        <span>Following</span>
+                        <span class="aklink"></span>
+                    </h3>
+                    <div class="subscribe"></div>
+                    <br>
+                    <div class="followinstagram"></div>
+                    <hr class="halfwidth"/>
+                </div>
+                <hr/>
+            </div>
+            <div class="all">
+                <p><span>All photos</span></p>
+                <p>
+                    <span>View all</span>
+                    <span class="anchor" jsaction="photos">photos</span>
+                </p>
+            </div>
+            <div class="photos">
+                Boilerplates photos
+                <div class="gallery">
+                    <p style="font-size: 28px;">Main images</p>
+                    <div class="url">
+                        <img class="galleryimage" src="./AK007theGAMER.jpg" alt="mainlogo">
+                        <img class="galleryimage" src="./AK007theGAMERinstagram.jpg" alt="mainlogo">
+                        <img class="galleryimage" src="./AK007theGAMERyoutube.jpg" alt="mainlogo">
+                        <span class="desc">Original logo</span>
+                        <span class="desc">Instagram logo</span>
+                        <span class="desc">YouTube logo</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle">Main images which can be used as wallpaper</p>
+                    <div class="url">
+                        <img class="galleryimage screengalleryimage" src="./AK007theGAMERbackgroundIMAGE.PNG" alt="mainlogo">
+                        <img class="galleryimage screengalleryimage" src="./AK007theGAMERbackgroundIMAGEblack.PNG" alt="mainlogo">
+                        <span class="desc">Main logo with white background</span>
+                        <span class="desc">Main logo with black background</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle">Transformed image</p>
+                    <div class="url">
+                        <img class="galleryimage" src="./AK007theGAMERmainlogoWITHnoAK007theGAMER.jpeg" alt="main">
+                        <span class="desc">No 'AK007 the GAMER' title</span>
+                        <img class="galleryimage" src="./AK007theGAMERmainlogowithNOtiger.jpeg" alt="main">
+                        <span class="desc">No 'tiger'</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle">Blueprint images</p>
+                    <div class="url">
+                        <img class="galleryimage" src="./AK007theGAMERblueprintlogoTHUNDERtigersRED.jpeg" alt="blueprintlogo">
+                        <span class="desc">Parent logo (red)</span>
+                        <img class="galleryimage" src="./AK007theGAMERblueprintLOGO.png" alt="blueprintlogo">
+                        <span class="desc">Different logo</span>
+                        <img class="galleryimage" src="./Goldenlions.jpg" alt="blueprintlogo">
+                        <span class="desc">Golden lions</span>
+                        <img class="galleryimage" src="./Arizonalionslogo.jpg" alt="blueprintlogo">
+                        <span class="desc">Arizonalion logo</span>
+                        <img class="galleryimage" src="./Swardgamerz.jpg" alt="blueprintlogo">
+                        <span class="desc">Sward gamerz logo</span>
+                        <img class="galleryimage" src="./FreeFireMONSTERSlogo.png" alt="blueprintlogo">
+                        <span class="desc">Free fire logo</span>
+                        <img class="galleryimage" src="./gundharigamingLOGO.jpg" alt="blueprintlogo">
+                        <span class="desc">Gun dhari Gaming logo</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle" style="margin-top: 600px;">Masked/black and white images</p>
+                    <div class="url">
+                        <img class="galleryimage" src="./AK007theGAMERmainlogoMASKEDlogo.jpeg" alt="blueprintlogo">
+                        <span class="desc">Black and white image</span>
+                        <img class="galleryimage" src="./AK007theGAMERblueprintlogoCRICKETpredatorsMASKEDlogo.jpeg" alt="blueprintlogo">
+                        <span class="desc">Black and white logo of cricket predetors</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle"><b>Golden boilerplates</b></p>
+                    <div class="url">
+                        <img class="galleryimage" src="./AK007theGAMERmainlogoBLUE.jpeg" alt="goldenboilerplatew">
+                        <span class="desc">Blue image</span>
+                    </div>
+                </div>
+                <div class="gallery videogallery">
+                    <p class="gallerytitle"><b>GIF videos</b></p>
+                    <div class="url">
+                        <img class="galleryimage screengalleryimage" src="./AK007theGAMERblueprintLOGOgreenPREVIEWvideoGIF.gif" alt="gif">
+                        <span class="desc">GIF video</span>
+                    </div>
+                </div>
+            </div>
+            <div class="videos">
+                <div class="gallery">
+                    <p style="font-size: 28px;"><b>Video gallery</b></p>
+                    <div class="url">
+                        <video class="galleryvideo" src="./AK007theGAMERblueprintLOGOgreenPREVIEW.mp4" autoplay controls></video>
+                        <video class="galleryvideo" src="./AggressiveRoaringPreview.mp4" autoplay controls></video>
+                        <video class="galleryvideo" src="./junglekingsgamingsquadspreview.mp4" autoplay controls></video>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/_Fq1JTKFL3k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <span class="desc">
+                            <span><b>Blueprint logo</b></span>
+                            <span>animation</span>
+                        </span>
+                        <span class="desc">
+                            <span><b>Aggressiver roaring</b></span>
+                            <span>logo animation</span>
+                        </span>
+                        <span class="desc">
+                            <span><b>Jungle tigers</b></span>
+                            <span>logo animation</span>
+                        </span>
+                        <span class="desc">Gangster logo animation</span>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <p class="gallerytitle">
+                        <b>
+                            <span>Some</span>
+                            <span class="aklink">'s</span>
+                            <span>videos</span>
+                        </b>
+                    </p>
+                    <div class="url">
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/lPKBIpa1rZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/ix5EKRQJHZs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/59U1xm5d72M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/ufPHhrFbMBA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/qMseaPoSqgk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="galleryvideo" src="https://www.youtube.com/embed/d6I_YbVqUH4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <span class="desc">
+                            Aaj hum Udaan bharenge -Airline commander
+                        </span>
+                        <span class="desc">
+                            <span>Airline commander</span>
+                            <span><b>part 2</b></span>
+                        </span>
+                        <span class="desc">
+                            PUBG mobile zombie mode funny moments
+                        </span>
+                        <span class="desc">
+                            Career season 1 | full walkthrough | Asphalt 9:Legends HD gameplay
+                        </span>
+                        <span class="desc">
+                            Career season 2 | full walkthrough | Asphalt 9:Legends HD gameplay
+                        </span>
+                        <span class="desc">
+                            Diwali special (Fort making)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+            <div class="darkbg">
+                <canvas class="darkbg fullwidth fullheight"></canvas>
+            </div>
+            <div class="slide">
+                <button class="absolute close fullleft" style="margin-top: 50px;">X</button>
+                <img class="absolute halfleft halftop displayimage" src="./AK007theGAMER.jpg" alt="display">
+            </div>
+            <div class="subscribebtn">
+                <span>
+                    <a class="subspan" href="https://www.youtube.com/channel/UCbMhaBj7fReBAZBz9fWrALg" target="_blank">
+                        <button class="subbtn">
+			  SUBSCRIBE
+                        </button>
+                    </a>
+                </span>
+            </div>
+            <div class="aklinks">
+                <span>
+                    <a href="https://www.youtube.com/channel/UCbMhaBj7fReBAZBz9fWrALg" target="_blank">AK007 the GAMER</a>
+                </span>
+            </div>
+            <div class="followbtn">
+                <div>
+                    <span>
+                        <a class="followspan" href="https://www.instagram.com/ak007_the_gamer/" target="_blank">
+                            <button class="followbtn">
+                                <b>Follow</b>
+                            </button>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="boilerplateoption">
+                <div class="optionboilerplates">
+                    <select class="selectboilerplate" name="boilerplate">
+                        <option class="boilerplateopt" value="All">All</option>
+                        <option class="boilerplateopt" value="Photos">Photos</option>
+                        <option class="boilerplateopt" value="Videos">Videos</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function anonymous() {
+            function Particle(x, y, radius, color, velocity, radian, circular) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+                this.radian = radian;
+                this.circular = circular;
+                this.defined = { x: x, y: y };
+            }
+            Particle.prototype = {
+                draw: function(last) {
+                    for (let index = 0; index < contexts.length; index++) {
+                        const c = contexts[index];
+                        c.beginPath();
+                        c.moveTo(this.x, this.y);
+                        c.lineTo(last.x, last.y);
+                        c.strokeStyle = this.color;
+                        c.lineWidth = this.radius;
+                        c.stroke();
+                        c.closePath();
+                    }
+                },
+                circle: function() {
+                    this.x = this.defined.x + Math.cos(this.radian) * this.circular;
+                    this.y = this.defined.y + Math.sin(this.radian) * this.circular;
+                    this.radian += this.velocity.radian;
+                    this.circular += this.velocity.circular;
+                },
+                star: function() {
+                    this.circle();
+                    this.draw(this.defined);
+                },
+                particle: function() {
+                    const last = { x: this.x, y: this.y };
+                    this.circle();
+                    this.draw(last);
+                    if (mouse.x !== undefined) {
+                        this.defined.x += (mouse.x - this.x) * 0.05;
+                        this.defined.y += (mouse.y - this.y) * 0.05;
+                    } else if (touches.length !== 0) {
+                        this.defined.x += (touches[0].pageX - this.x) * 0.05;
+                        this.defined.y += (touches[0].pageY - this.y) * 0.05;
+                    }
+                }
+            };
+            var active = "home";
+            const aklinks = document.querySelectorAll(".aklink");
+            const subscribebtns = document.querySelectorAll(".subscribe");
+            // const gallerytitles = document.querySelectorAll(".gallerytitle");
+            const linavbar = document.querySelectorAll("li.navbar");
+            const followinstagram = document.querySelectorAll(".followinstagram");
+            const subscribebtn = document.querySelector(".subscribebtn");
+            const primaryAKlink = document.querySelector(".aklinks");
+            const followbtn = document.querySelector(".followbtn");
+            const content = document.querySelector(".content");
+            const home = document.querySelector(".home");
+            const aboutus = document.querySelector(".about");
+            const supportus = document.querySelector(".support");
+            const allcontent = document.querySelector(".allcontent");
+            const all = document.querySelector(".all");
+            const photos = document.querySelector(".photos");
+            const videos = document.querySelector(".videos");
+            const canvas = [document.querySelector(".upper")];
+            const fullwidth = document.querySelectorAll(".fullwidth");
+            const fullheight = document.querySelectorAll(".fullheight");
+            const allimages = document.querySelector(".allimages");
+            const fullleft = document.querySelectorAll(".fullleft");
+            const gallery = document.querySelectorAll(".gallery");
+            const galleryimage = document.querySelectorAll(".galleryimage");
+            const hide = document.querySelector(".hide");
+            const slideDivision = document.querySelector(".slide");
+            const darkbg = document.querySelector(".darkbg");
+            const copybtn = document.querySelector(".copybtn");
+            const boilerplateoption = document.querySelector(".boilerplateoption");
+            const boilerplateselect = document.querySelectorAll(".boilerplateselect");
+            const commenttext = document.querySelector("#commenttext");
+            const contents = [home, aboutus, supportus, allcontent, all, photos, videos];
+            const contexts = [canvas[0].getContext("2d")];
+            const onResizeFunctions = [];
+            const galleryimages = [];
+            const imageClass = [];
+            const jsactions = [];
+            const particles = [];
+            const touches = [];
+            const stars = [];
+            const mid = { x: undefined, y: undefined };
+            const mouse = { x: undefined, y: undefined };
+            const photoDivision = {};
+            const slide = {
+                isActive: false,
+                activeSlide: null,
+                activeImage: null,
+                slideType: null,
+                otherimages: [],
+                imageElements: [],
+                displayImage: document.querySelector(".displayimage"),
+                active: function(active) {
+                    if (!active) {
+                        this.isActive = false;
+                        this.activeSlide = null;
+                        this.activeImage = null;
+                        this.slideType = null;
+                        this.otherimages.length = 0;
+                        darkbg.remove();
+                        slideDivision.remove();
+                    }
+                }
+            };
+            hide.remove();
+            for (let index = 0; index < document.all.length; index++) {
+                const allelement = document.all[index];
+                const attribute = allelement.getAttribute("jsaction");
+                if (attribute) {
+                    jsactions.unshift(allelement);
+                    jsactions[0].jsaction = attribute;
+                }
+            }
+            for (let index = 0; index < contents.length; index++) {
+                const eachcontent = contents[index];
+                if (eachcontent.className !== active) eachcontent.remove();
+                content.insertBefore(allcontent, content.childNodes[0]);
+            }
+            for (let index = 0; index < aklinks.length; index++) {
+                const aklink = aklinks[index];
+                aklink.innerHTML = primaryAKlink.innerHTML + aklink.innerHTML;
+            }
+            for (let index = 0; index < subscribebtns.length; index++) {
+                const subscribe = subscribebtns[index];
+                subscribe.innerHTML += subscribebtn.innerHTML;
+            }
+            for (let index = 0; index < followinstagram.length; index++) {
+                const follow = followinstagram[index];
+                follow.innerHTML = followbtn.innerHTML + follow.innerHTML;
+            }
+            for (let index = 0; index < boilerplateselect.length; index++) {
+                var selected = "";
+                const select = boilerplateselect[index];
+                select.innerHTML = boilerplateoption.innerHTML + select.innerHTML;
+            }
+            for (let index = 0; index < gallery.length; index++) {
+                const photoGallery = gallery[index];
+                const images = [];
+                const videos = [];
+                const links = [];
+                const descs = [];
+                const description = [];
+                for (let i = 0; i < photoGallery.children.length; i++) {
+                    const linkList = photoGallery.children[i];
+                    for (let i = 0; i < description.length; i++) {
+                        let d = description[i];
+                        let names = "";
+                        for (let j = 0; j < d.split(" ").length; j++) {
+                            const de = d.split(" ")[j];
+                            names += de;
+                        }
+                        imageClass.push(names);
+                    }
+                    if (linkList.className === "url") {
+                        for (let j = 0; j < linkList.children.length; j++) {
+                            const link = linkList.children[j];
+                            if (link.className === "desc") {
+                                descs.push(link.innerHTML);
+                            }
+                            if (link.className === "galleryvideo") {
+                                videos.push(link);
+                            }
+                            if (
+                                link.className === "galleryimage" ||
+                                link.className === "galleryimage screengalleryimage"
+                            )
+                                links.push(link.src);
+                            if (
+                                link.className === "galleryimage" ||
+                                link.className === "galleryimage screengalleryimage"
+                            ) {
+                                for (let k = 0; k < description.length; k++) {
+                                    const eachDesk = description[k];
+                                    link.desc = eachDesk;
+                                }
+                                images.push(link);
+                                galleryimages.push(link);
+                            }
+                        }
+                        linkList.remove();
+                    } else if (
+                        linkList.className === "gallerytitle" ||
+                        linkList.style.fontSize === "28px"
+                    )
+                        description.push(linkList.textContent);
+                }
+                for (let i = 0; i < images.length; i++) {
+                    const downloadButton = document.createElement("button");
+                    const main = document.createElement("div");
+                    const div = document.createElement("div");
+                    const span = document.createElement("span");
+                    const image = images[i];
+                    const desc = document.createElement("div");
+                    const title = document.createElement("p");
+                    desc.innerHTML += descs[i];
+                    downloadButton.innerHTML = "Download";
+                    downloadButton.className += "download";
+                    downloadButton.onclick = function() {
+                        download(links[i], desc.innerHTML);
+                    };
+                    span.appendChild(image);
+                    div.appendChild(span);
+                    div.appendChild(desc);
+                    div.appendChild(downloadButton);
+                    main.className = "gallerydivision";
+                    desc.className = "desc";
+                    main.appendChild(div);
+                    photoGallery.appendChild(main);
+                    image.addEventListener(
+                        "click",
+                        function() {
+                            imageClick(desc, image);
+                        },
+                        false
+                    );
+
+                }
+                for (let i = 0; i < videos.length; i++) {
+                    const downloadButton = document.createElement("button");
+                    const video = videos[i];
+                    const div = document.createElement("div");
+                    const desc = document.createElement("div");
+                    downloadButton.innerHTML = "Download";
+                    downloadButton.className += "download";
+                    desc.style.textAlign = "center";
+                    desc.innerHTML += descs[i];
+                    div.className = "gallerydivision";
+                    div.style.height = "auto";
+                    div.appendChild(video);
+                    div.appendChild(desc);
+                    div.appendChild(downloadButton);
+                    photoGallery.appendChild(div);
+                    if (video.tagName.toLowerCase() === "video") {
+                        downloadButton.onclick = function() {
+                            download(links[i], desc.innerHTML);
+                        };
+                    } else {
+                        downloadButton.innerHTML = "Download unavailable";
+                        downloadButton.style.backgroundColor = "#ff000080";
+                        downloadButton.style.cursor = "not-allowed";
+                    }
+                }
+            }
+            for (let index = 0; index < contents.length; index++) {
+                const content = contents[index];
+                const main = document.createElement("div");
+                const descs = [];
+                const images = [];
+                const links = [];
+                main.className = "gallery";
+                if (content.className === "photos") {
+                    for (let i = 0; i < content.children.length; i++) {
+                        const eachContent = content.children[i];
+                        for (let j = 0; j < eachContent.children.length; j++) {
+                            const element = eachContent.children[j];
+                            if (element.className === "gallerydivision") {
+                                const div = document.createElement("div");
+                                div.className = "gallerydivision";
+                                div.innerHTML += element.innerHTML;
+                                for (let k = 0; k < div.children.length; k++) {
+                                    const eachmain = div.children[k];
+                                    for (let l = 0; l < eachmain.children.length; l++) {
+                                        const each = eachmain.children[l];
+                                        if (each.className === "desc")
+                                            descs.push(each);
+                                        else if (each.className === "") {
+                                            images.push(each.children[0]);
+                                            links.push(each.children[0].src);
+                                        }
+                                        else if (each.className === "download") {
+                                            for (let m = 0; m < images.length; m++) {
+                                                const image = images[m];
+                                                const desc = descs[m];
+                                                each.onclick = function() {
+                                                    download(links[m], desc.innerHTML);
+                                                };  
+                                            }  
+                                        }
+                                    }
+                                }
+                                main.appendChild(div);
+                            }
+                        }
+                    }
+                    contents[4].appendChild(main);
+                }
+                for (let i = 0; i < images.length; i++) {
+                    const image = images[i];
+                    const desc = descs[i];
+                    image.onclick = function() {
+                        imageClick(desc, image)
+                    };
+                }
+            }
+            for (let index = 0; index < linavbar.length; index++) {
+                const li = linavbar[index];
+                li.addEventListener(
+                    "click",
+                    function() {
+                        for (let i = 0; i < linavbar.length; i++) {
+                            if (linavbar[i].className !== "navbar dropdown")
+                                linavbar[i].className = "navbar";
+                        }
+                        if (li.className !== "navbar dropdown")
+                            li.className = "navbar activenavbar";
+                        for (let i = 0; i < li.children.length; i++) {
+                            const span = li.children[i];
+                            active = span.innerHTML.toLowerCase();
+                        };
+                        for (let i = 0; i < contents.length; i++) {
+                            const eachContent = contents[i];
+                            if (eachContent.className === active)
+                                content.insertBefore(eachContent, content.childNodes[0]);
+                            else eachContent.remove();
+                        }
+                        content.insertBefore(allcontent, content.childNodes[0]);
+                        resizeCanvas();
+                        // changeActiveTo(li);
+                    },
+                    false
+                );
+            }
+            for (let index = 0; index < jsactions.length; index++) {
+                const element = jsactions[index];
+                element.addEventListener(
+                    "click",
+                    function() {
+                        active = element.jsaction;
+                        for (let i = 0; i < linavbar.length; i++) {
+                            if (linavbar[i].className !== "navbar dropdown")
+                                linavbar[i].className = "navbar";
+                        }
+                        for (let i = 0; i < linavbar.length; i++) {
+                            const li = linavbar[i];
+                            for (let j = 0; j < li.children.length; j++) {
+                                const span = li.children[j];
+                                if (span.innerHTML.toLowerCase() === active) {
+                                    if (li.className !== "navbar dropdown")
+                                    li.className = "navbar activenavbar";
+                                    for (let i = 0; i < li.children.length; i++) {
+                                        const span = li.children[i];
+                                        active = span.innerHTML.toLowerCase();
+                                    }
+                                    for (let i = 0; i < contents.length; i++) {
+                                        const eachContent = contents[i];
+                                        if (eachContent.className === active)
+                                            content.insertBefore(eachContent, content.childNodes[0]);
+                                        else eachContent.remove();
+                                    }
+                                    content.insertBefore(allcontent, content.childNodes[0]);
+                                }
+                            }
+                        }
+                        resizeCanvas();
+                    },
+                    false
+                )
+            }
+            const interactEvents = function(event) {
+                if (event.type === "mousemove" || event.type === "mouseover") {
+                    mouse.x = event.pageX;
+                    mouse.y = event.pageY;
+                } else if (event.type === "touchstart" || event.type === "touchmove") {
+                    for (let index = 0; index < event.touches.length; index++) {
+                        const touch = event.touches[index];
+                        touches[index] = touch;
+                    }
+                } else {
+                    touches.length = 0;
+                    mouse.x = undefined;
+                    mouse.y = undefined;
+                }
+            };
+            window.addEventListener("resize", onResize, false);
+            window.addEventListener("mouseover", interactEvents, false);
+            window.addEventListener("mousemove", interactEvents, false);
+            window.addEventListener("mouseout", interactEvents, false);
+            window.addEventListener("touchstart", interactEvents, false);
+            window.addEventListener("touchmove", interactEvents, false);
+            window.addEventListener("touchend", interactEvents, false);
+            copybtn.addEventListener(
+                "click",
+                function() {
+                    if (active === "support us") {
+                        commenttext.select();
+                        document.execCommand("copy");
+                    }
+                },
+                false
+            );
+            function randomFromRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+            function randomIntFromRange(min, max) {
+                return Math.floor(randomFromRange(min, max));
+            }
+            function toNumber(string) {
+                return string - 0;
+            }
+            function toString(number) {
+                return number + number;
+            }
+            function isClass(element, className) {
+                var result = false;
+                const classes = element.className.split(" ");
+                for (let index = 0; index < classes.length; index++) {
+                    if (classes[index] === className) result = true;
+                }
+                return result;
+            }
+            function getDataURL(url) {
+                return window.fetch(url)
+                .then(function(response) {
+                    return response.blob();
+                })
+                .then(function(blob) {
+                    return window.URL.createObjectURL(blob);
+                });
+            }
+            async function download(url, name) {
+                const a = document.createElement("a");
+                a.href = await getDataURL(url);
+                a.download = name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            function downloadFile(filename, data) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;base64,' + data);
+                element.setAttribute('download', filename);
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+            function setCookie(name, key, anycost) {
+                if (window.localStorage) {
+                    if (
+                        window.localStorage[name] === null ||
+                        window.localStorage[name] === "null" ||
+                        window.localStorage[name] === undefined
+                    ) {
+                        window.localStorage[name] = key;
+                        return true;
+                    } else if (anycost) {
+                        window.localStorage[name] = key;
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            function getCookie(name) {
+                if (window.localStorage)
+                    return window.localStorage[name];
+            }
+            function resizeCanvas() {
+                if (active === "all" || active === "photos" || active === "videos") {
+                    canvas[0].height = document.documentElement.clientHeight * 10;
+                } else canvas[0].height = document.documentElement.clientHeight;
+            }
+            function imageClick(desc, image) {
+                const anchor = document.createElement("a");
+                slide.isActive = true;
+                slide.activeSlide = desc.innerHTML;
+                slide.activeImage = image;
+                slide.slideType = image.desc;
+                if (slide.isActive) {
+                    for (let j = 0; j < slideDivision.children.length; j++) {
+                        // for (let k = 0; k < galleryimages.length; k++) {
+                        //     const eachimage = galleryimages[k];
+                        //     if (slide.slideType === eachimage.desc) {
+                        //         slide.otherimages.push(eachimage);
+                        //     }
+                        // }
+                        const element = slideDivision.children[j];
+                        if (isClass(element, "close")) {
+                            element.onclick = function() {
+                                slide.active(false);
+                            };
+                        } else if (isClass(element, "displayimage")) {
+                            element.src = image.src;
+                            element.width = image.width * 2;
+                            element.height = image.height * 2;
+                        }
+                    }
+                    document.body.insertBefore(slideDivision, document.body.childNodes[0]);
+                    document.body.insertBefore(darkbg, document.body.childNodes[0]);
+                }
+                    for (let j = 0; j < slide.otherimages.length; j++) {
+                        const image = slide.otherimages[j];
+                        const img = document.createElement("img");
+                        img.style.float = "left";
+                        img.src = image.src;
+                        img.width = 50;
+                        img.height = 50;
+                        img.style.marginTop = "20px";
+                        onResizeFunctions.push(
+                            {
+                                work: function() {
+                                    img.style.marginTop = mid.y + 160 + "px";
+                                }
+                            }
+                        );
+                        slide.imageElements.push(img);
+                        onResizeFunctions[0].work.call();
+                    }
+                for (let j = 0; j < slide.imageElements.length; j++) {
+                    const element = slide.imageElements[j];
+                    slideDivision.appendChild(element);
+                }
+                console.log(slide);
+            }
+            function onResize() {
+                mid.x = document.documentElement.clientWidth * 0.5;
+                mid.y = document.documentElement.clientHeight * 0.5;
+                for (let index = 0; index < onResizeFunctions.length; index++) {
+                    const functions = onResizeFunctions[index];
+                    functions.work.call();
+                }
+                var large = document.documentElement.clientWidth * 10;
+                if (large < document.documentElement.clientHeight)
+                    large = document.documentElement.clientHeight * 10;
+                particles.length = 0;
+                stars.length = 0;
+                resizeCanvas();
+                canvas[0].width = document.documentElement.clientWidth;
+                for (let index = 0; index < fullwidth.length; index++) {
+                    const element = fullwidth[index];
+                    element.width = mid.x * 2;
+                }
+                for (let index = 0; index < fullheight.length; index++) {
+                    const element = fullheight[index];
+                    element.height = mid.y * 2;
+                }
+                for (let index = 0; index < fullleft.length; index++) {
+                    const element = fullleft[index];
+                    element.style.marginLeft = mid.x * 1.8 + "px";
+                }
+                for (var index = 0; index < 200; index++) {
+                    stars.push(
+                        new Particle(
+                            mid.x,
+                            mid.y,
+                            Math.random(),
+                            ["white", "#FFFFFF"][
+                                randomIntFromRange(0, 2)
+                            ],
+                            { radian: 0.01, circular: 0 },
+                            randomFromRange(0, 2 * 3.14159),
+                            large
+                        )
+                    );
+                }
+                for (var index = 0; index < 50; index++) {
+                    particles.push(
+                        new Particle(
+                            mid.x,
+                            mid.y,
+                            randomFromRange(1, 3),
+                            "red",
+                            { radian: 0.03, circular: 0 },
+                            randomFromRange(0, 2 * 3.14159),
+                            randomIntFromRange(50, 100)
+                        )
+                    );
+                }
+            }
+            function animate() {
+                window.requestAnimationFrame(animate);
+                for (let index = 0; index < contexts.length; index++) {
+                    const c = contexts[index];
+                    c.fillStyle = "rgba(225, 225, 225, 0.05)";
+                    c.fillRect(0, 0, canvas[0].width, canvas[0].height);
+                }
+                commenttext.value = "Please do not change your logo!";
+                for (let index = 0; index < particles.length; index++) {
+                    const particle = particles[index];
+                    particle.particle();
+                }
+                for (let index = 0; index < stars.length; index++) {
+                    const star = stars[index];
+                    star.star();
+                }
+                for (let index = 0; index < document.querySelectorAll(".halftop").length; index++) {
+                    const element = document.querySelectorAll(".halftop")[index];
+                    if (element.tagName.toLowerCase() === "img")
+                        element.style.marginTop = mid.y - element.height * 0.5 + "px";
+                    else element.style.marginTop = mid.y + "px";
+                }
+                for (let index = 0; index < document.querySelectorAll(".halfleft").length; index++) {
+                    const element = document.querySelectorAll(".halfleft")[index];
+                    if (element.tagName.toLowerCase() === "img")
+                        element.style.marginLeft = mid.x - element.width * 0.5 + "px";
+                    else element.style.marginLeft = mid.x + "px";
+                }
+            }
+            onResize();
+            animate();
+        }).call(window);
+    </script>
+</body>
+</html>
